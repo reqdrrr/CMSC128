@@ -1,0 +1,27 @@
+{% extends "dappx/base.html" %}
+{% block body_block %}
+<div class="content-section">
+  {% if registered %}
+  <div class="border-top pt-3">
+    <h2>Thank you for registering!</h2>
+  </div>
+
+  {% else %}
+  <form enctype="multipart/form-data" method="POST">
+      {% csrf_token %}
+      <fieldset class="form-group">
+          <legend class="border-bottom mb-4">Join Today</legend>
+          {{ user_form.as_p }}
+      </fieldset>
+      <div class="form-group">
+        <input class="btn btn-outline-info" type="submit" name="" value="Register">
+      </div>
+  </form>
+  <div class="border-top pt-3">
+    <small class="text-muted">
+        Already Have An Account? <a class="ml-2" href="{% url 'user_login' %}">Sign In</a>
+    </small>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}
