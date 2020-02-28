@@ -10,3 +10,7 @@ class UserProfileInfo(models.Model):
 
 def __str__(self):
   return self.user.username
+
+
+class Post(models.Model):
+    file = models.FileField(null=True,blank=True,upload_to='Files')
