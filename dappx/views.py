@@ -15,13 +15,13 @@ def index(request):
     if request.method == 'GET':
         return render(request,'dappx/index.html')
     else:
-        MyPostForm = PostForm(request.POST, request.FILES)
 
+        #File handling -- fix this
+        MyPostForm = PostForm(request.POST, request.FILES)
         if MyPostForm.is_valid():
             post = Post()
-            post. = MyPostForm.cleaned_data["uploadfile"]
+            post.uploadfile = MyPostForm.cleaned_data["excel_file"]
             post.save()
-            saved = True
 
         upload_file = request.FILES["excel_file"]
         data = list()

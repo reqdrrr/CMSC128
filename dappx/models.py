@@ -13,5 +13,4 @@ def __str__(self):
 
 
 class Post(models.Model):
-    uploadfile = models.FileField(null=True,blank=True,upload_to='Files')
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    uploadfile = models.FileField(null=True,blank=True,upload_to='Files/')
