@@ -6,6 +6,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from dappx.models import Post
+from dappx.forms import PostForm
 import openpyxl
 import csv
 
@@ -13,6 +15,14 @@ def index(request):
     if request.method == 'GET':
         return render(request,'dappx/index.html')
     else:
+
+        #File handling -- fix this
+        MyPostForm = PostForm(request.POST, request.FILES)
+        if MyPostForm.is_valid():
+            post = Post()
+            post.uploadfile = MyPostForm.cleaned_data["excel_file"]
+            post.save()
+
         upload_file = request.FILES["excel_file"]
         data = list()
         if upload_file.name.endswith('.xlsx'):
@@ -36,10 +46,7 @@ def index(request):
                     row_data.append(str(cell))
                 data.append(row_data)
 
-        # else:
-		    # messages.error(request,'File type not supported')
-		    # return HttpResponseRedirect(reverse("index"))
-
+        else: return render(request,'dappx/index.html')
 
         return render(request,'dappx/index.html', {"excel_data":data})
 
@@ -85,3 +92,4 @@ def user_login(request):
             return HttpResponseRedirect(reverse('user_login'))
     else:
         return render(request, 'dappx/login.html', {})
+
