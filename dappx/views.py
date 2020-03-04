@@ -46,6 +46,7 @@ def index(request):
                     row_data.append(str(cell))
                 data.append(row_data)
 
+        else: return render(request,'dappx/index.html')
 
         return render(request,'dappx/index.html', {"excel_data":data})
 
